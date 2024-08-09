@@ -1,12 +1,12 @@
 import pytest
+from typing import Any
 
 
-def test_one():
+def test_one() -> None:
     assert len([1, 3, 4]) == 3
 
 
-def test_two():
+def test_two() -> None:
     with pytest.raises(KeyError):
-        d = {}
+        d: dict[str, Any] = {}
         obs = d["obs"]
-        return obs
