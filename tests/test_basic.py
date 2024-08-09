@@ -9,4 +9,4 @@ def test_one() -> None:
 def test_two() -> None:
     with pytest.raises(KeyError):
         d: dict[str, Any] = {}
-        obs = d["obs"]
+        obs = d["obs"]  # noqa: F841
