@@ -28,7 +28,7 @@ jobs:
     - name: Install the project dependencies
       run: poetry install --with dev -E ml
     - name: Run black
-      run: poetry run black check .
+      run: poetry run black --check .
     - name: Run ruff
       run: poetry run ruff check .
     - name: Run mypy
