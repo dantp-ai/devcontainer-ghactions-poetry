@@ -3,33 +3,41 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
 jobs:
   lint-format-typecheck:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
       with:
-        python-version: "3.11"
-    - name: Display Python version
-      run: python -c "import sys; print(sys.version)"
-    - name: Install poetry
-      uses: abatilo/actions-poetry@v2
-    - name: Setup a local virtual environment (if no poetry.toml file)
-      run: |
-        poetry config virtualenvs.create true --local
-        poetry config virtualenvs.in-project true --local
-    - uses: actions/cache@v3
-      name: Define a cache for the virtual environment based on the dependencies lock file
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GH_DEVCONTAINER_TOKEN }}
+
+    - name: Cache venv
+      uses: actions/cache@v4
       with:
         path: ./.venv
         key: venv-${{ hashFiles('poetry.lock') }}
-    - name: Install the project dependencies
-      run: poetry install --with dev -E ml
-    - name: Run black
-      run: poetry run black --check .
-    - name: Run ruff
-      run: poetry run ruff check .
-    - name: Run mypy
-      run: poetry run mypy src tests
+    - name: Build and run dev container task
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/devcontainer-ghactions-poetry
+        runCmd: |
+          poetry run black --check .
+          poetry run ruff check .
+          poetry run mypy src tests
