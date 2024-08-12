@@ -10,11 +10,13 @@ exclude = ["tests/*"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+matplotlib = {version = "^3.9.1.post1", extras = ["visualization"], optional = true}
 numpy = "^1"
 scipy = {version = "^1.14.0", extras = ["ml"], optional = true}
 
 [tool.poetry.extras]
 ml = ["scipy"]
+visualization = ["matplotlib"]
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
