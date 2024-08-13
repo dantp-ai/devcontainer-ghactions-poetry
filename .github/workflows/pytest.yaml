@@ -1,43 +1,42 @@
-
 on:
-    pull_request:
-    push:
-      branches:
-        - main
-    workflow_dispatch:
-      inputs:
-        logLevel:
-          description: 'Log level'
-          required: true
-          default: 'warning'
-          type: choice
-          options:
-          - info
-          - warning
-          - debug
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
 jobs:
-    pytest:
-      runs-on: ubuntu-latest
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GH_DEVCONTAINER_TOKEN }}
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GH_DEVCONTAINER_TOKEN }}
 
-      - name: Cache venv
-        uses: actions/cache@v4
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+    - name: Cache venv
+      uses: actions/cache@v4
+      with:
+        path: ./.venv
+        key: venv-${{ hashFiles('poetry.lock') }}
 
-      - name: Build and run dev container task
-        uses: devcontainers/ci@v0.3
-        with:
-          imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/devcontainer-ghactions-poetry
-          runCmd: |
-            poetry run pytest
+    - name: Build and run dev container task
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/devcontainer-ghactions-poetry
+        runCmd: |
+          poetry run pytest
