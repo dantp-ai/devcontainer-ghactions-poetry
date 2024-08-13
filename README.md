@@ -48,4 +48,8 @@ Note that in step 3, the devcontainer is not rebuilt, but reused from the latest
 
 ### 2. Open a PR with a new feature
 
+Similar to scenario 1, but pushing new devcontainer image is _skipped_ because the code changes are not merged to main ([see specification of](https://github.com/devcontainers/ci/blob/main/docs/github-action.md#inputs) `push` and `eventFilterForPush` inputs for `devcontainer/ci` action).
+
 ### 3. Add new Python libraries to the list of existing dependencies
+
+If we were to add a new Python library as part of our development, in step 4 of scenario 1 we would not get the virtual environment from the cache, but we would use the newly created one with the additional library and _push_ it to the cache.
