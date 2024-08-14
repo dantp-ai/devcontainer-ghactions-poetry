@@ -41,5 +41,5 @@ jobs:
         imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/devcontainer-ghactions-poetry
         runCmd: |
           poetry run black --check .
-          poetry run ruff check .
+          poetry run ruff check --fix
           poetry run mypy src tests
