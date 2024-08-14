@@ -1,4 +1,4 @@
-# Easily setup devcontainer and base Github actions workflows on it
+# Easily set up devcontainer and base Github actions workflows on it
 
 
 ## Introduction
