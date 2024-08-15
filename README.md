@@ -8,7 +8,7 @@ This repository has a small yet instructive project that shows you how to create
 Specifically, the project is a simple Python app whose dependencies are managed by [Poetry](https://python-poetry.org/).
 
 * It contains some simple tests (for example purposes) that are run with pytest.
-* It uses black, ruff, and mypy for linting, formatting, and type checking.
+* It uses ruff for linting and formatting, and mypy for type checking.
 * Finally, it has two Github actions workflows for:
 
     1. linting, formatting, and type checking.
