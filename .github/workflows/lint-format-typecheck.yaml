@@ -38,7 +38,7 @@ jobs:
     - name: Build and run dev container task
       uses: devcontainers/ci@v0.3
       with:
-        imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/devcontainer-ghactions-poetry
+        imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/${{ vars.CONTAINER_IMAGE_NAME }}
         runCmd: |
           poetry run ruff check --fix
           poetry run ruff format .
