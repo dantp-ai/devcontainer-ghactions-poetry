@@ -1,3 +1,4 @@
+name: Lint, format, type-check
 on:
   # Rebuild any PR to main and push changes to main
   pull_request:
