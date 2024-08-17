@@ -42,6 +42,12 @@ jobs:
       uses: devcontainers/ci@v0.3
       with:
         imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/${{ vars.CONTAINER_IMAGE_NAME }}
+        # Push new container image if `eventFilterForPush` and `refFilterForPush` (by default allow all branches to trigger a push of the container image) are true
+        push: filter
+        # Push new image only if event name that triggered this workflow matches `push`
+        # If a pull request triggered it, then skip pushing new container image to registry
+        eventFilterForPush:
+          - push
         runCmd: |
           poetry run ruff check --fix
           poetry run ruff format .
