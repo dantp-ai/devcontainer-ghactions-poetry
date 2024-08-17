@@ -48,7 +48,7 @@ Note that in step 3, the devcontainer is not rebuilt, but reused from the latest
 
 ### 2. Open a PR with a new feature
 
-Similar to scenario 1, but pushing new devcontainer image is _skipped_ because the code changes are not merged to main ([see specification of](https://github.com/devcontainers/ci/blob/main/docs/github-action.md#inputs) `push` and `eventFilterForPush` inputs for `devcontainer/ci` action).
+Similar to scenario 1, but pushing new devcontainer image is _skipped_ because the workflow has not been triggered by a push to main, rather a PR event (for more [see specification of](https://github.com/devcontainers/ci/blob/main/docs/github-action.md#inputs) `push`, `refFilterForPush`, and `eventFilterForPush` (default) inputs for `devcontainer/ci` action).
 
 ### 3. Add new Python libraries to the list of existing dependencies
 
