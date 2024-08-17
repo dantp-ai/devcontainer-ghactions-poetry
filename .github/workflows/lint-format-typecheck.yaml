@@ -46,8 +46,7 @@ jobs:
         push: filter
         # Push new image only if event name that triggered this workflow matches `push`
         # If a pull request triggered it, then skip pushing new container image to registry
-        eventFilterForPush:
-          - push
+        eventFilterForPush: push
         runCmd: |
           poetry run ruff check --fix
           poetry run ruff format .

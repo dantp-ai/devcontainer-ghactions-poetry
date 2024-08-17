@@ -42,7 +42,6 @@ jobs:
       with:
         imageName: ghcr.io/${{ secrets.GH_DOCKER_REGISTRY_NAMESPACE }}/${{ vars.CONTAINER_IMAGE_NAME }}
         push: filter
-        eventFilterForPush:
-          - push
+        eventFilterForPush: push
         runCmd: |
           poetry run pytest
